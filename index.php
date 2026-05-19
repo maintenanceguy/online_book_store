@@ -129,7 +129,7 @@ if (isset($_SESSION['user_id'])) {
 </section>
 
 <footer>
-    <p>© 2026 Online Book Store · Full Stack Web Technologies Project</p>
+    <p>© 2026 Online Book Store · Web Technologies Project</p>
 </footer>
 
 <script>
