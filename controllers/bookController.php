@@ -38,9 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (empty($errors)) {
             $imageName = time() . "_" . basename($_FILES['image']['name']);
+            $uploadDir = __DIR__ . "/../public/uploads/books/";
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
             move_uploaded_file(
                 $_FILES['image']['tmp_name'],
-                "../public/uploads/books/" . $imageName
+                $uploadDir . $imageName
             );
         }
     }

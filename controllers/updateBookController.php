@@ -17,12 +17,15 @@ $category_id = (int) $_POST['category_id'];
 
 if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
 
-    $imageName = time() . "_" . basename($_FILES['image']['name']);
-    move_uploaded_file($_FILES['image']['tmp_name'], "../public/uploads/books/" . $imageName);
+    $imageName  = time() . "_" . basename($_FILES['image']['name']);
+    $uploadDir  = __DIR__ . "/../public/uploads/books/";
+    if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+    $uploadPath = $uploadDir . $imageName;
+    move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath);
 
     $sql  = "UPDATE books SET title=?, author=?, description=?, price=?, stock=?, category_id=?, image_path=? WHERE id=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssdisi", $title, $author, $description, $price, $stock, $category_id, $imageName, $id);
+    $stmt->bind_param("sssdiisi", $title, $author, $description, $price, $stock, $category_id, $imageName, $id);
 
 } else {
 

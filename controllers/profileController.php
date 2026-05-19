@@ -40,8 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (empty($errors)) {
+            $uploadDir = __DIR__ . "/../public/uploads/profiles/";
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
             $filename = time() . "_" . basename($_FILES['profile_picture']['name']);
-            move_uploaded_file($_FILES['profile_picture']['tmp_name'], "../public/uploads/profiles/" . $filename);
+            move_uploaded_file($_FILES['profile_picture']['tmp_name'], $uploadDir . $filename);
             $profile_picture = $filename;
         }
     }
